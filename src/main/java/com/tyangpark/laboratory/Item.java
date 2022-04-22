@@ -1,25 +1,22 @@
 package com.tyangpark.laboratory;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-public class Customer {
+public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String firstName;
-    private String lastName;
+    private String name;
 
-    @OneToMany(mappedBy="customer")
-    private Set<Item> items;
-
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 }
