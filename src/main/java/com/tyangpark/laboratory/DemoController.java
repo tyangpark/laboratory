@@ -19,22 +19,22 @@ public class DemoController {
 
     @PostMapping("/add")
     public String addCustomer(@RequestParam String first, @RequestParam String last) {
-        Set<Item> itemSet = new HashSet<>();
-        Item item1 = new Item();
-        item1.setName("test1");
-
-        Item item2 = new Item();
-        item2.setName("test2");
-
-        itemSet.add(item1);
-        itemSet.add(item2);
-        itemRepository.saveAll(itemSet);
-
         Customer customer = new Customer();
         customer.setFirstName(first);
         customer.setLastName(last);
-        customer.setItems(itemSet);
         customerRepository.save(customer);
+
+        Set<Item> itemSet = new HashSet<>();
+        Item item1 = new Item();
+        item1.setName("test1");
+        item1.setCustomer(customer);
+        Item item2 = new Item();
+        item2.setName("test2");
+        item2.setCustomer(customer);
+        itemSet.add(item1);
+        itemSet.add(item2);
+        itemRepository.saveAll(itemSet);
+        
         return "Added new customer to repo!";
     }
 
