@@ -14,18 +14,11 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/h2-console/**", "/add");
-    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/add").permitAll()
+                .antMatchers("/img/**", "/css/**", "/js/**", "/", "/home").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
